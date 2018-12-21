@@ -1,6 +1,10 @@
 from tkinter import *
 import backend
 
+def get_selected_row(event):
+    index=list1.curselection()
+    print(index)
+
 def veiw_command():
     list1.delete(0,END)#this is to delete everthing from index of 0 to the end: stops repitition
     for row in backend.view():
@@ -16,6 +20,11 @@ def insert_command():
     list1.delete(0,END)
     list1.insert(END,(title_text.get(),Auth_text.get(),year_text.get(), isb_text.get()))
 
+'''def delete_command():
+    backend.delete(title_text.get(),Auth_text.get(),year_text.get(), isb_text.get())
+    list1.delete(0,END)
+    list1.insert(END,(title_text.get(),Auth_text.get(),year_text.get(), isb_text.get()))
+'''
 window = Tk()
 
 l1 = Label(window, text = "Title")
@@ -56,6 +65,7 @@ sb1.grid(row=3, column=2, rowspan = 4, columnspan = 1)
 list1.configure(yscrollcommand = sb1.set)
 sb1.configure(command=list1.yview)
 
+list1.bind('<<ListboxSelect>>', get_selected_row)
 
 b1=Button(window,text="View all", width=12, command = veiw_command)
 b1.grid(row=2,column=3)
