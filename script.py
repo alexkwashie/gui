@@ -4,17 +4,18 @@ import backend
 #backend :- this allows us to use functions from the backend.py file
 def get_selected_row(event):
     global select_tuple
-    index=list1.curselection()[0] # this the to grab the first index
-    select_tuple = list1.get(index) #list1.get() is to select the data of the selected index
-    #Allow selected row to shoe in fields
-    e1.delete(0, END) #Empty the field
-    e1.insert(END, select_tuple[1])
-    e2.delete(0, END) #Empty the field
-    e2.insert(END, select_tuple[2])
-    e3.delete(0, END) #Empty the field
-    e3.insert(END, select_tuple[3])
-    e4.delete(0, END) #Empty the field
-    e4.insert(END, select_tuple[4])
+    if list1.curselection():
+        index=list1.curselection()[0] # this the to grab the first index
+        select_tuple = list1.get(index) #list1.get() is to select the data of the selected index
+        #Allow selected row to shoe in fields
+        e1.delete(0, END) #Empty the field
+        e1.insert(END, select_tuple[1])
+        e2.delete(0, END) #Empty the field
+        e2.insert(END, select_tuple[2])
+        e3.delete(0, END) #Empty the field
+        e3.insert(END, select_tuple[3])
+        e4.delete(0, END) #Empty the field
+        e4.insert(END, select_tuple[4])
 
 def veiw_command():
     list1.delete(0,END)#this is to delete everthing from index of 0 to the end: stops repitition
@@ -42,8 +43,11 @@ def delete_command():
     for row in backend.view(): #this is to display all other enteries after a delete
         list1.insert(END,row)
 
-def delete_command():
-    backend.update(select_tuple[1],select_tuple[2],select_tuple[3],select_tuple[4])
+def update_command():
+    backend.update(select_tuple[0],title_text.get(),Auth_text.get(),year_text.get(), isb_text.get())
+    list1.delete(0,END)
+    for row in backend.view(): #this is to display all other enteries after a delete
+        list1.insert(END,row)
 
 #backend
 
@@ -103,13 +107,13 @@ b2.grid(row=3,column=3)
 b3=Button(window,text="Add entry", width=12, command = insert_command)
 b3.grid(row=4,column=3)
 
-b4=Button(window,text="Update selected", width=12)
+b4=Button(window,text="Update selected", width=12, command = update_command)
 b4.grid(row=5,column=3)
 
 b5=Button(window,text="Delete selected", width=12, command = delete_command)
 b5.grid(row=6,column=3)
 
-b6=Button(window,text="Close", width=12)
+b6=Button(window,text="Close", width=12, command = window.destroy)
 b6.grid(row=7,column=3)
 
 

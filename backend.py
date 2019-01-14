@@ -1,4 +1,4 @@
-import sqlite3  #to use sqlite commands
+import sqlite3 #to use sqlite commands
 
 def connect():
     conn = sqlite3.connect("books.db")
@@ -42,7 +42,7 @@ def delete(id):
 def update(id, title, Author, year, isbn):
     conn = sqlite3.connect("books.db")
     cur = conn.cursor()
-    cur.execute("UPDATE books SET Author = ?,  year=?,  isbn=? WHERE title = ?", ( Author, year, isbn, title, id))
+    cur.execute("UPDATE books SET title = ?, Author = ? , year = ?,  isbn=? WHERE id =?", ( title, Author, year, isbn, id))
     #make sure they are in the right order
     conn.commit()
     conn.close()
