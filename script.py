@@ -1,9 +1,11 @@
 from tkinter import *
 import backend
 
+#backend :- this allows us to use functions from the backend.py file
 def get_selected_row(event):
-    index=list1.curselection()
-    print(index)
+    index=list1.curselection()[0] # this the to grab the first index
+    select_tuple = list1.get(index) #list1.get() is to select the data of the selected index
+    return(select_tuple)
 
 def veiw_command():
     list1.delete(0,END)#this is to delete everthing from index of 0 to the end: stops repitition
@@ -12,19 +14,23 @@ def veiw_command():
 
 def search_command():
     list1.delete(0,END)
-    for row in backend.search(title_text.get(),Auth_text.get(),year_text.get(), isb_text.get()):
+    for row in backend.search(title_text.get(),Auth_text.get(),year_text.get(), isb_text.get()): #.get() allows you to get the exact string
         list1.insert(END,row)
 
 def insert_command():
     backend.insert(title_text.get(),Auth_text.get(),year_text.get(), isb_text.get())
     list1.delete(0,END)
-    list1.insert(END,(title_text.get(),Auth_text.get(),year_text.get(), isb_text.get()))
+    list1.insert(END,(title_text.get(),Auth_text.get(),year_text.get(), isb_text.get())) # this will show the values entered
 
-'''def delete_command():
-    backend.delete(title_text.get(),Auth_text.get(),year_text.get(), isb_text.get())
+def delete_command():
+    backend.delete(get_selected_row()[0]) # this will not work because select_tuple is not  a global variable
     list1.delete(0,END)
-    list1.insert(END,(title_text.get(),Auth_text.get(),year_text.get(), isb_text.get()))
-'''
+
+
+#backend
+
+
+#tkinter
 window = Tk()
 
 l1 = Label(window, text = "Title")
@@ -64,8 +70,11 @@ sb1.grid(row=3, column=2, rowspan = 4, columnspan = 1)
 
 list1.configure(yscrollcommand = sb1.set)
 sb1.configure(command=list1.yview)
+#creat scrollbar
 
+#list bind allow u to select a row
 list1.bind('<<ListboxSelect>>', get_selected_row)
+
 
 b1=Button(window,text="View all", width=12, command = veiw_command)
 b1.grid(row=2,column=3)
@@ -79,7 +88,7 @@ b3.grid(row=4,column=3)
 b4=Button(window,text="Update selected", width=12)
 b4.grid(row=5,column=3)
 
-b5=Button(window,text="Delete selected", width=12)
+b5=Button(window,text="Delete selected", width=12, command = delete_command)
 b5.grid(row=6,column=3)
 
 b6=Button(window,text="Close", width=12)
@@ -87,3 +96,5 @@ b6.grid(row=7,column=3)
 
 
 window.mainloop()
+
+#tkinter
