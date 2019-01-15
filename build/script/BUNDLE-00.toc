@@ -1,0 +1,3 @@
+([('script',
+   '/Users/alexkwashie/Desktop/WorkingFiles/pythonApps/guiApp/gui/dist/script',
+   'EXECUTABLE')],)

@@ -55,6 +55,9 @@ def update_command():
 #tkinter
 window = Tk()
 
+#window title
+window.wm_title('BookStore')
+
 l1 = Label(window, text = "Title")
 l1.grid(row=0, column=0)
 
