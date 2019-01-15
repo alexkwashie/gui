@@ -1,5 +1,7 @@
 from tkinter import *
-import backend
+from backend import Database #import the database class form the backend.py file
+
+database = Database('db')
 
 #backend :- this allows us to use functions from the backend.py file
 def get_selected_row(event):
@@ -19,16 +21,16 @@ def get_selected_row(event):
 
 def veiw_command():
     list1.delete(0,END)#this is to delete everthing from index of 0 to the end: stops repitition
-    for row in backend.view():
+    for row in database.view():
         list1.insert(END,row)#END is used to put the others at the end of the first one
 
 def search_command():
     list1.delete(0,END)
-    for row in backend.search(title_text.get(),Auth_text.get(),year_text.get(), isb_text.get()): #.get() allows you to get the exact string
+    for row in database.search(title_text.get(),Auth_text.get(),year_text.get(), isb_text.get()): #.get() allows you to get the exact string
         list1.insert(END,row)
 
 def insert_command():
-    backend.insert(title_text.get(),Auth_text.get(),year_text.get(), isb_text.get())
+    database.insert(title_text.get(),Auth_text.get(),year_text.get(), isb_text.get())
     list1.delete(0,END)
     list1.insert(END,(title_text.get(),Auth_text.get(),year_text.get(), isb_text.get())) # this will show the values entered
     #Clear fields after adding input
@@ -38,15 +40,15 @@ def insert_command():
     e4.delete(0, END)
 
 def delete_command():
-    backend.delete(select_tuple[0])
+    database.delete(select_tuple[0])
     list1.delete(0,END)
-    for row in backend.view(): #this is to display all other enteries after a delete
+    for row in database.view(): #this is to display all other enteries after a delete
         list1.insert(END,row)
 
 def update_command():
-    backend.update(select_tuple[0],title_text.get(),Auth_text.get(),year_text.get(), isb_text.get())
+    database.update(select_tuple[0],title_text.get(),Auth_text.get(),year_text.get(), isb_text.get())
     list1.delete(0,END)
-    for row in backend.view(): #this is to display all other enteries after a delete
+    for row in database.view(): #this is to display all other enteries after a delete
         list1.insert(END,row)
 
 #backend
