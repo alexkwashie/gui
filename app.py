@@ -77,6 +77,8 @@ print(view())
 
 '''
 
+#postgreSQL uses psycopg2 to upload data to the database
+
 import psycopg2
 
 def create_table():
